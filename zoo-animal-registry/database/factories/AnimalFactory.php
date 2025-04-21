@@ -18,13 +18,16 @@ class AnimalFactory extends Factory
 
         $predators = [
             'Lion', 'Tiger', 'Cheetah', 'Wolf', 'Eagle', 'Hawk',
-            'Falcon', 'Snake', 'Crocodile', 'Bear'
+            'Falcon', 'Snake', 'Crocodile', 'Bear', 'Owl', 'Lizard',
+            'Alligator', 'Hyena', 'Jaguar', 'Leopard', 'Bobcat', 'Fox',
+            'Scorpion', 'Komodo Dragon', 'Wolverine'
         ];
 
         $preys = [
             'Zebra', 'Elephant', 'Giraffe', 'Panda', 'Koala', 'Kangaroo',
-            'Penguin', 'Dolphin', 'Whale', 'Gorilla',
-            'Parrot', 'Owl', 'Lizard', 'Turtle', 'Alligator'
+            'Penguin', 'Dolphin', 'Whale', 'Gorilla', 'Parrot', 'Turtle',
+            'Deer', 'Rabbit', 'Sheep', 'Goat', 'Capybara', 'Sloth',
+            'Tapir', 'Meerkat', 'Flamingo', 'Manatee'
         ];
 
         $isPredator = $this->faker->boolean;
