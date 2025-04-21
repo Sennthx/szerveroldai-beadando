@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("name");
             $table->unsignedSmallInteger("limit");
             $table->time('feeding_at');
+            $table->boolean("for_predators")->default(false);
 
             $table->timestamps();
         });
