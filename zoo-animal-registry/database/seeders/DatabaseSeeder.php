@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Animal;
+use App\Models\Enclosure;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -18,10 +20,25 @@ class DatabaseSeeder extends Seeder
             'admin' => true,
         ]);
 
-        User::factory(10)->create();
+        $users = User::factory(10)->create();
+
+        $this->call(EnclosureSeeder::class);
+        $enclosures = Enclosure::all();
+
+        foreach ($users as $user) {
+            $randomEnclosures = $enclosures->random(rand(2, 5))->pluck('id');
+            $user->enclosures()->attach($randomEnclosures);
+        }
 
         $this->call([
-            EnclosureSeeder::class,
+            AnimalSeeder::class,
         ]);
+
+        // simulate archived animals
+        $animalsToArchive = Animal::inRandomOrder()->take(rand(2, 3))->get();
+        foreach ($animalsToArchive as $animal) {
+            $animal->archive();
+        }
+
     }
 }

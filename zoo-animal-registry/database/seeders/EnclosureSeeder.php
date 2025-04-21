@@ -20,5 +20,7 @@ class EnclosureSeeder extends Seeder
             'limit' => 9999,
             'feeding_at' => $feedingTime,
         ]);
+
+        Enclosure::factory(8)->create();
     }
 }
