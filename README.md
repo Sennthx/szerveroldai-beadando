@@ -1,4 +1,4 @@
-[ ] - Adatbázis és modellek (3 pont)
+[ ] - Adatbázis és modellek (3 pont) </br>
 [ ] - Seeder (3 pont)
 [ ] - Főoldal (4 pont)
 [ ] - Kifutók listázása (3 pont)
