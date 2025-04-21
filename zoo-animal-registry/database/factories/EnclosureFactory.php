@@ -17,7 +17,10 @@ class EnclosureFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->unique()->word . ' Enclosure',
+            'limit' => $this->faker->numberBetween(1, 20),
+            'feeding_at' => $this->faker->time('H:i:s'),
+            'for_predators' => $this->faker->boolean(),
         ];
     }
 }
