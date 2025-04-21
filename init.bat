@@ -1,4 +1,6 @@
 :: Install Composer packages without any interaction or console log
+:: call cd zoo-animal-registry
+
 call composer install --no-interaction --quiet
 
 :: .env file initialization
