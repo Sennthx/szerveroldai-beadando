@@ -15,6 +15,7 @@ class Enclosure extends Model
         'name',
         'limit',
         'feeding_at',
+        'for_predators',
     ];
 
     protected function casts(): array
@@ -22,12 +23,13 @@ class Enclosure extends Model
         return [
             'limit' => 'integer',
             'feeding_at' => 'string',
+            'for_predators' => 'boolean',
         ];
     }
 
     // Get the users that belong to this enclosure.
     public function users(): BelongsToMany {
-        return $this->hasMany(User::class)->withTimestamps();
+        return $this->BelongsToMany(User::class)->withTimestamps();
     }
 
     // Get the animals in the enclosure.

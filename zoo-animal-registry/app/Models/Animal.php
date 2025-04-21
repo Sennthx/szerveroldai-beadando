@@ -36,13 +36,12 @@ class Animal extends Model
         ];
     }
 
-    public function archiveAnimal(Animal $animal): void {
+    public function archive(): void {
         $afterlifeId = config('zoo.afterlife_enclosure_id');
-        $animal->update([
+        $this->update([
             'enclosure_id' => $afterlifeId,
         ]);
-
-        $animal->delete(); // soft delete
+        $this->delete(); // soft delete
     }
 
     // Get the enclosure that belong to this animal.

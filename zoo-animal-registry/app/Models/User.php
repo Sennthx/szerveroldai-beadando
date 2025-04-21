@@ -34,7 +34,7 @@ class User extends Authenticatable
 
     // Get the enclosures that belong to this users.
     public function enclosures(): BelongsToMany {
-        return $this->hasMany(Animal::class)->withTimestamps();
+        return $this->BelongsToMany(Enclosure::class)->withTimestamps();
     }
 
 }
