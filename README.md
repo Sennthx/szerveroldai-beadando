@@ -1,6 +1,6 @@
-[ ] - Adatbázis és modellek (3 pont) </br>
-[ ] - Seeder (3 pont) </br>
-[ ] - Főoldal (4 pont) </br>
+[x] - Adatbázis és modellek (3 pont) </br>
+[x] - Seeder (3 pont) </br>
+[x] - Főoldal (4 pont) </br>
 [ ] - Kifutók listázása (3 pont) </br>
 [ ] - Kifutó létrehozása (3 pont) </br>
 [ ] - Kifutó szerkesztése (3 pont) </br>
