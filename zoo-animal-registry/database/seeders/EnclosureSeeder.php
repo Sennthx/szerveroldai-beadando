@@ -21,6 +21,6 @@ class EnclosureSeeder extends Seeder
             'feeding_at' => $feedingTime,
         ]);
 
-        Enclosure::factory(8)->create();
+        Enclosure::factory(20)->create();
     }
 }

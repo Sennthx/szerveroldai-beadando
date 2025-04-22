@@ -20,14 +20,21 @@ class DatabaseSeeder extends Seeder
             'admin' => true,
         ]);
 
-        $users = User::factory(10)->create();
+        User::factory(10)->create();
+
+        $users = User::all();
 
         $this->call(EnclosureSeeder::class);
         $enclosures = Enclosure::all();
 
+
         foreach ($users as $user) {
-            $randomEnclosures = $enclosures->random(rand(2, 5))->pluck('id');
-            $user->enclosures()->attach($randomEnclosures);
+            if ($user->admin) {
+                $user->enclosures()->attach($enclosures->pluck('id'));
+            } else {
+                $randomEnclosures = $enclosures->random(rand(2, 5))->pluck('id');
+                $user->enclosures()->attach($randomEnclosures);
+            }
         }
 
         $this->call([
