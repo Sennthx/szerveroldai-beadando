@@ -20,6 +20,13 @@ class DatabaseSeeder extends Seeder
             'admin' => true,
         ]);
 
+        User::factory()->create([
+            'name' => 'Super User',
+            'email' => 'u@u.hu',
+            'password' => Hash::make('u'),
+            'admin' => false,
+        ]);
+
         User::factory(10)->create();
 
         $users = User::all();
@@ -31,10 +38,9 @@ class DatabaseSeeder extends Seeder
         foreach ($users as $user) {
             if ($user->admin) {
                 $user->enclosures()->attach($enclosures->pluck('id'));
-            } else {
-                $randomEnclosures = $enclosures->random(rand(2, 5))->pluck('id');
-                $user->enclosures()->attach($randomEnclosures);
             }
+            $randomEnclosures = $enclosures->random(rand(2, 5))->pluck('id');
+            $user->enclosures()->attach($randomEnclosures);
         }
 
         $this->call([
