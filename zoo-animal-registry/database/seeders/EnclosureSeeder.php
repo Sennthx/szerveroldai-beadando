@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use Carbon\Carbon;
 
 use App\Models\Enclosure;
@@ -12,7 +13,7 @@ class EnclosureSeeder extends Seeder
     public function run(): void
     {
 
-        $feedingTime = Carbon::createFromFormat('H:i:s', '00:00:00', 'Europe/Budapest')->format('H:i:s');
+        $feedingTime = Carbon::createFromFormat('H:i', '00:00', 'Europe/Budapest')->format('H:i');
 
         Enclosure::firstOrCreate([
             'name' => 'Örök Vadászmezők',

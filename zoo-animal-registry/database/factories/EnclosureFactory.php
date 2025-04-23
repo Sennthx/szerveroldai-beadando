@@ -19,7 +19,7 @@ class EnclosureFactory extends Factory
         return [
             'name' => $this->faker->unique()->word . ' Enclosure',
             'limit' => $this->faker->numberBetween(1, 20),
-            'feeding_at' => $this->faker->time('H:i:s'),
+            'feeding_at' => $this->faker->time('H:i'),
             'for_predators' => $this->faker->boolean(),
         ];
     }
