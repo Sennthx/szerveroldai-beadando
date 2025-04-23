@@ -63,7 +63,7 @@ class EnclosureController extends Controller
         ]);
 
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:20',
             'limit' => 'required|integer|min:1',
             'feeding_at' => 'required|date_format:H:i',
             'for_predators' => 'boolean',
@@ -83,8 +83,6 @@ class EnclosureController extends Controller
             return redirect()->route('enclosures.index')->withErrors('Enclosure not found.');
         }
 
-        // $enclosure->feeding_at = Carbon::parse($enclosure->feeding_at)->format('H:i');
-
         return view('enclosures.edit', compact('enclosure'));
     }
 
@@ -98,7 +96,7 @@ class EnclosureController extends Controller
         }
 
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:20',
             'limit' => 'required|integer|min:1',
             'feeding_at' => 'required|date_format:H:i',
         ]);
