@@ -1,76 +1,9 @@
+
 @extends('layouts.app')
 
 @section('title', 'Edit Enclosure | Zoo Registry')
 
 @section('content')
-    <h1 class="text-4xl font-bold mb-6 mt-8 text-center">Edit Enclosure: {{ $enclosure->name }}</h1>
+    <h1 class="text-4xl font-bold mb-6 mt-8 text-center">Edit Enclosure</h1>
     <hr />
-
-    @if($enclosure->for_predators)
-        <div class="bg-red-100 text-red-800 font-semibold px-4 py-2 rounded text-center max-w-xl mx-auto mb-6">
-            ⚠️ This enclosure contains predators!
-        </div>
-    @endif
-
-    <div class="max-w-4xl mx-auto mb-8 p-6 bg-white shadow-md rounded-xl">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-lg">
-            <div>
-                <label class="font-semibold">Name:</label>
-                <p>{{ $enclosure->name }}</p>
-            </div>
-            <div>
-                <label class="font-semibold">Animal Limit:</label>
-                <p>{{ $enclosure->limit }}</p>
-            </div>
-            <div>
-                <label class="font-semibold">Current Animals:</label>
-                <p>{{ $enclosure->animals->count() }}</p>
-            </div>
-            <div>
-                <label class="font-semibold">For Predators:</label>
-                <p>{{ $enclosure->for_predators ? 'Yes' : 'No' }}</p>
-            </div>
-        </div>
-    </div>
-
-    {{-- Animals List --}}
-    <h2 class="text-2xl font-bold mb-4 text-center">Animals in this Enclosure</h2>
-
-    <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        @forelse ($animals as $animal)
-            <div class="bg-gray-100 p-4 rounded-lg shadow flex flex-col items-center">
-                <img src="{{ $animal->image_url ?? asset('images/placeholder-animal.jpg') }}"
-                     alt="{{ $animal->name }}"
-                     class="w-32 h-32 object-cover rounded-full mb-4">
-
-                <div class="text-center">
-                    <h3 class="text-xl font-semibold">{{ $animal->name }}</h3>
-                    <p class="text-gray-700">{{ $animal->species }}</p>
-                    <p class="text-gray-600 text-sm">Born: {{ \Carbon\Carbon::parse($animal->birth_date)->format('Y-m-d') }}</p>
-                </div>
-
-                <div class="mt-4 flex gap-2">
-                    @can('update', $animal)
-                        <a href="{{ route('animals.edit', $animal->id) }}"
-                           class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm">
-                            Edit
-                        </a>
-                    @endcan
-
-                    @can('archive', $animal)
-                        <form action="{{ route('animals.archive', $animal->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
-                            @csrf
-                            @method('PATCH')
-                            <button type="submit"
-                                    class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">
-                                Archive
-                            </button>
-                        </form>
-                    @endcan
-                </div>
-            </div>
-        @empty
-            <p class="text-center col-span-full text-gray-500">No animals currently in this enclosure.</p>
-        @endforelse
-    </div>
 @endsection

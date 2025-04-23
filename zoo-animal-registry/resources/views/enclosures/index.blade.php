@@ -3,7 +3,18 @@
 @section('title', 'Enclosure Zoo| Registry')
 
 @section('content')
-    <h1 class="text-4xl font-bold mb-6 mt-8 text-center">Enclosures assigned to <span class="text-red-600 font-extrabold">you!</span></h1>
+    @auth
+        @if (Auth::user()->admin)
+            <div class="w-full flex justify-center mb-4 mt-8">
+                <a href="{{ route('enclosures.create') }}"
+                class="px-3 py-2 bg-indigo-500 text-lg text-white rounded hover:bg-indigo-600 ">
+                    Create an enclosure
+                </a>
+            </div>
+        @endif
+    @endauth
+    <h1 class="text-4xl font-bold mb-4 mt-6 text-center">Enclosures assigned to <span class="text-red-600 font-extrabold">you!</span></h1>
+
     <div class="w-full flex justify-center mb-8">
         <table class="table-auto text-xl w-fit max-w-4xl mx-auto my-4 bg-white shadow-md rounded-xl ">
             <thead class="text-center table-light">

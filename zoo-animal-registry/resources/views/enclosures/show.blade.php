@@ -14,6 +14,16 @@
             ✅ This enclosure does not contain predators!
         </div>
     @endif
+    @auth
+        @if (Auth::user()->admin)
+            <div class="w-full flex justify-center mb-4 mt-8">
+                <a href="{{ route('enclosures.edit', $enclosure->id) }}"
+                class="px-3 py-2 bg-indigo-500 text-lg text-white rounded hover:bg-indigo-600 ">
+                    Edit this enclosure
+                </a>
+            </div>
+        @endif
+    @endauth
 
     <div class="max-w-4xl mx-auto mb-8 p-6 bg-white shadow-md rounded-xl">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-lg ">
@@ -53,7 +63,7 @@
                 </div>
 
                 <div class="mt-4 flex gap-2">
-                    @auth
+                @auth
                     @if (Auth::user()->admin)
                         <a href="{{ route('animals.edit', $animal->id) }}"
                         class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm">
