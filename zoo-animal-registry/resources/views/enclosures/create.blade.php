@@ -44,10 +44,11 @@
                 <x-input-error :messages="$errors->get('for_predators')" class="mt-2" />
             </div>
 
-            <div>
+            <div class="flex items-center justify-between">
                 <x-primary-button>
                     {{ __('Create Enclosure') }}
                 </x-primary-button>
+                <a href="{{ route('enclosures.index') }}" class="text-indigo-500 hover:underline">Cancel</a>
             </div>
         </form>
     </div>
