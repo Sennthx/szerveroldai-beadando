@@ -31,8 +31,11 @@ class EnclosureController extends Controller
 
     public function show(Request $req, $id)
     {
-
         $enclosure = Enclosure::find($id);
+
+        if (!$enclosure) {
+            return redirect()->route('enclosures.index')->withErrors('Enclosure not found.');
+        }
 
         $animals = $enclosure->animals
             ->sortBy([
@@ -74,25 +77,33 @@ class EnclosureController extends Controller
 
     public function edit($id)
     {
-        $enclosure = Enclosure::find($id)->first();
+        $enclosure = Enclosure::find($id);
+
+        if (!$enclosure) {
+            return redirect()->route('enclosures.index')->withErrors('Enclosure not found.');
+        }
+
+        // $enclosure->feeding_at = Carbon::parse($enclosure->feeding_at)->format('H:i');
+
         return view('enclosures.edit', compact('enclosure'));
     }
 
 
     public function update(Request $request, $id)
     {
-        $request->merge([
-            'for_predators' => $request->has('for_predators'),
-        ]);
+        $enclosure = Enclosure::find($id);
+
+        if (!$enclosure) {
+            return redirect()->route('enclosures.index')->withErrors('Enclosure not found.');
+        }
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'limit' => 'required|integer|min:1',
             'feeding_at' => 'required|date_format:H:i',
-            'for_predators' => 'boolean',
         ]);
 
-        Enclosure::create($validated);
+        $enclosure->update($validated);
 
         return redirect()->route('enclosures.index')
             ->with('success', 'Enclosure created successfully.');
