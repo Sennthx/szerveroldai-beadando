@@ -43,4 +43,15 @@ class EnclosureController extends Controller
 
         return view('enclosures.show', compact('enclosure', "animals"));
     }
+
+    public function create()
+    {
+        return view('enclosures.create');
+    }
+
+    public function edit($id)
+    {
+        $enclosure = Enclosure::find($id)->first();
+        return view('enclosures.edit', compact('enclosure'));
+    }
 }
