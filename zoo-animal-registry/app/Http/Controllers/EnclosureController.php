@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Animal;
 use App\Models\Enclosure;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -83,9 +84,10 @@ class EnclosureController extends Controller
             return redirect()->route('enclosures.index')->withErrors('Enclosure not found.');
         }
 
-        return view('enclosures.edit', compact('enclosure'));
-    }
+        $users = User::all();
 
+        return view('enclosures.edit', compact('enclosure', 'users'));
+    }
 
     public function update(Request $request, $id)
     {
@@ -99,9 +101,15 @@ class EnclosureController extends Controller
             'name' => 'required|string|max:20',
             'limit' => 'required|integer|min:1',
             'feeding_at' => 'required|date_format:H:i',
+            'caretakers' => 'nullable|array',
+            'caretakers.*' => 'exists:users,id',
         ]);
 
         $enclosure->update($validated);
+
+        if ($request->has('caretakers')) {
+            $enclosure->users()->sync($request->input('caretakers'));
+        }
 
         return redirect()->route('enclosures.index')
             ->with('success', 'Enclosure created successfully.');
@@ -109,7 +117,17 @@ class EnclosureController extends Controller
 
     public function destroy($id)
     {
-        $enclosure = Enclosure::findOrFail($id);
+        $enclosure = Enclosure::find($id);
+
+        if (!$enclosure) {
+            return redirect()->route('enclosures.index')->withErrors('Enclosure not found.');
+        }
+
+        if ($enclosure->animals->count() > 0) {
+            return redirect()->back()
+                ->withErrors('Cannot delete enclosure with animals in it. Please move them first.');
+        }
+
         $enclosure->delete();
 
         return redirect()->route('enclosures.index')

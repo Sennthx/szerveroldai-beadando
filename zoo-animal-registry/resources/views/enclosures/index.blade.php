@@ -2,7 +2,10 @@
 
 @section('title', 'Enclosures | Zoo Registry')
 
+
+
 @section('content')
+    @include('layouts.toast')
     @auth
         @if (Auth::user()->admin)
             <div class="w-full flex justify-center mb-4 mt-8">

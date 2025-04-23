@@ -3,6 +3,7 @@
 @section('title', 'Enclosure | Zoo Registry')
 
 @section('content')
+    @include('layouts.toast')
     <h1 class="text-4xl font-bold mb-6 mt-8 text-center">Current Enclosure: <span
             class="text-red-600 font-extrabold">{{ $enclosure->name }}</span></h1>
 

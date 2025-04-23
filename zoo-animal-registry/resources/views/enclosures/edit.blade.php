@@ -35,6 +35,17 @@
                 <x-input-error :messages="$errors->get('feeding_at')" class="mt-2" />
             </div>
 
+            <div class="mb-4">
+                <x-input-label for="caretakers" :value="__('Caretakers')" />
+                <select id="caretakers" name="caretakers[]" multiple class="w-full mt-1 border rounded">
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}" {{ in_array($user->id, $enclosure->users->pluck('id')->toArray()) ? 'selected' : '' }}>
+                            {{ $user->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="flex items-center justify-between">
                 <x-primary-button>
                     {{ __('Update Enclosure') }}
