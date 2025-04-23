@@ -1,16 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Enclosure | Zoo Registry')
+@section('title', 'Enclosure | Zoo Registry')
 
 @section('content')
-    <h1 class="text-4xl font-bold mb-6 mt-8 text-center">Current Enclosure: <span class="text-red-600 font-extrabold">{{ $enclosure->name }}</span></h1>
+    <h1 class="text-4xl font-bold mb-6 mt-8 text-center">Current Enclosure: <span
+            class="text-red-600 font-extrabold">{{ $enclosure->name }}</span></h1>
 
-    @if($enclosure->for_predators)
-        <div class="bg-red-100 text-red-800 border border-red-800 font-semibold px-4 py-2 rounded text-center max-w-xl mx-auto mb-6">
+    @if ($enclosure->for_predators)
+        <div
+            class="bg-red-100 text-red-800 border border-red-800 font-semibold px-4 py-2 rounded text-center max-w-xl mx-auto mb-6">
             ⚠️ This enclosure contains predators!
         </div>
     @else
-        <div class="bg-green-100 text-green-800 border border-green-800 font-semibold px-4 py-2 rounded text-center max-w-xl mx-auto mb-6">
+        <div
+            class="bg-green-100 text-green-800 border border-green-800 font-semibold px-4 py-2 rounded text-center max-w-xl mx-auto mb-6">
             ✅ This enclosure does not contain predators!
         </div>
     @endif
@@ -18,9 +21,19 @@
         @if (Auth::user()->admin)
             <div class="w-full flex justify-center mb-4 mt-8">
                 <a href="{{ route('enclosures.edit', $enclosure->id) }}"
-                class="px-3 py-2 bg-indigo-500 text-lg text-white rounded hover:bg-indigo-600 ">
+                    class="px-3 py-2 mx-2 bg-indigo-500 text-lg text-white rounded hover:bg-indigo-600 ">
                     Edit this enclosure
                 </a>
+
+                <form action="{{ route('enclosures.destroy', $enclosure->id) }}" method="POST"
+                    onsubmit="return confirm('Are you sure you want to delete this enclosure?');">
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit" class="px-3 py-2 mx-2 bg-red-500 text-lg text-white rounded hover:bg-red-600">
+                        Delete this enclosure
+                    </button>
+                </form>
             </div>
         @endif
     @endauth
@@ -52,34 +65,34 @@
     <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         @forelse ($animals as $animal)
             <div class="bg-white shadow shadow-md rounded-xl p-4 flex flex-col items-center">
-                <img src="{{ $animal->image_url ?? asset('images/placeholder-animal.jpg') }}"
-                     alt="{{ $animal->name }}"
-                     class="w-32 h-32 object-cover rounded-full mb-4">
+                <img src="{{ $animal->image_url ?? asset('images/placeholder-animal.jpg') }}" alt="{{ $animal->name }}"
+                    class="w-32 h-32 object-cover rounded-full mb-4">
 
                 <div class="text-center">
                     <h3 class="text-xl font-semibold">{{ $animal->name }}</h3>
                     <p class="text-gray-700">{{ $animal->species }}</p>
-                    <p class="text-gray-600 text-sm">Born at: {{ \Carbon\Carbon::parse($animal->birth_date)->format('Y-m-d') }}</p>
+                    <p class="text-gray-600 text-sm">Born at:
+                        {{ $animal->birth_date }}</p>
                 </div>
 
                 <div class="mt-4 flex gap-2">
-                @auth
-                    @if (Auth::user()->admin)
-                        <a href="{{ route('animals.edit', $animal->id) }}"
-                        class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm">
-                            Edit
-                        </a>
+                    @auth
+                        @if (Auth::user()->admin)
+                            <a href="{{ route('animals.edit', $animal->id) }}"
+                                class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm">
+                                Edit
+                            </a>
 
-                        <form action="{{-- {{ route('animals.archive', $animal->id) }} --}}" method="POST" onsubmit="return confirm('Are you sure?')">
-                            @csrf
-                            @method('PATCH')
-                            <button type="submit"
+                            <form action="{{-- {{ route('animals.archive', $animal->id) }} --}}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit"
                                     class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">
-                                Archive
-                            </button>
-                        </form>
-                    @endif
-                @endauth
+                                    Archive
+                                </button>
+                            </form>
+                        @endif
+                    @endauth
                 </div>
             </div>
         @empty
