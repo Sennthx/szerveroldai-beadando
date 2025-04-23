@@ -30,20 +30,9 @@
             <!-- Feeding At -->
             <div class="mb-4">
                 <x-input-label for="feeding_at" :value="__('Feeding Time')" />
-                <x-text-input id="feeding_at" name="feeding_at" type="time" class="mt-1 block w-full" :value="old('feeding_at')"
+                <x-text-input id="feeding_at" name="feeding_at" type="time" class="mt-1 block w-full" :value="old('feeding_at', $enclosure->feeding_at)"
                     required />
                 <x-input-error :messages="$errors->get('feeding_at')" class="mt-2" />
-            </div>
-
-            <!-- For Predators -->
-            <div class="mb-6">
-                <label class="inline-flex items-center">
-                    <input type="checkbox" name="for_predators"
-                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-                        {{ old('for_predators', $enclosure->for_predators) ? 'checked' : '' }}>
-                    <span class="ms-2 text-sm text-gray-600">For Predators?</span>
-                </label>
-                <x-input-error :messages="$errors->get('for_predators')" class="mt-2" />
             </div>
 
             <div class="flex items-center justify-between">
