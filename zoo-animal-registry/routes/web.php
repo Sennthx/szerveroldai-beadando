@@ -23,8 +23,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->only(['create', 'store', 'edit', 'update', 'destroy']);
 
         Route::resource('animals', AnimalController::class)
-            ->only(['create', 'store', 'edit', 'update', 'destroy']);
-            
+            ->only(['show', 'create', 'store', 'edit', 'update', 'destroy']);
+
         Route::get('/animals/archived', [AnimalController::class, 'archived'])->name('animals.archived');
         Route::post('/animals/{animal}/restore', [AnimalController::class, 'restore'])->name('animals.restore');
     });
