@@ -39,7 +39,11 @@ class DatabaseSeeder extends Seeder
             if ($user->admin) {
                 $user->enclosures()->attach($enclosures->pluck('id'));
             }
-            $randomEnclosures = $enclosures->random(rand(2, 5))->pluck('id');
+            $randomEnclosures = $enclosures
+                ->where('id', '!=', 1)
+                ->random(rand(2, 5))
+                ->pluck('id');
+
             $user->enclosures()->attach($randomEnclosures);
         }
 

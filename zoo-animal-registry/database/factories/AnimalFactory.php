@@ -60,6 +60,7 @@ class AnimalFactory extends Factory
      */
     protected function getEnclosureForAnimal(bool $isPredator): ?Enclosure {
         $enclosures = Enclosure::where('for_predators', $isPredator)
+            ->where('id', '!=', 1) // special enclosure
             ->withCount(['animals' => function ($query) {
                 $query->whereNull('deleted_at');
             }])
