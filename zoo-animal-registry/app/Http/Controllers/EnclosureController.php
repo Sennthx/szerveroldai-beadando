@@ -30,7 +30,7 @@ class EnclosureController extends Controller
         return view('enclosures.index', compact('enclosures'));
     }
 
-    public function show(Request $req, $id)
+    public function show($id)
     {
         $enclosure = Enclosure::find($id);
 
@@ -112,7 +112,7 @@ class EnclosureController extends Controller
         }
 
         return redirect()->route('enclosures.index')
-            ->with('success', 'Enclosure created successfully.');
+            ->with('success', 'Enclosure updated successfully.');
     }
 
     public function destroy($id)
