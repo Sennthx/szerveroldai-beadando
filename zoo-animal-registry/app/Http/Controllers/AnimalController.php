@@ -7,7 +7,7 @@ use App\Models\Enclosure;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Validator;
 
 class AnimalController extends Controller
 {
@@ -58,7 +58,7 @@ class AnimalController extends Controller
 
     public function create()
     {
-        $enclosures = Enclosure::all();
+        $enclosures = Enclosure::where('id', '!=', 1)->get();
         return view('animals.create', compact('enclosures'));
     }
 
@@ -68,15 +68,35 @@ class AnimalController extends Controller
             'is_predator' => $request->has('is_predator'),
         ]);
 
-        $validated = $request->validate([
+        $validated = Validator::make($request->all(), [
             'name' => 'required|string|max:25',
             'species' => 'required|string|max:20',
             'born_at' => 'required|date_format:Y-m-d',
             'is_predator' => 'boolean',
-            'enclosure_id' => 'required|exists:enclosures,id',
+            'enclosure_id' => [
+                'required',
+                'exists:enclosures,id',
+                function ($attribute, $value, $fail) use ($request) {
+                    $enclosure = Enclosure::find($value);
+
+                    if (!$enclosure) return;
+
+                    if ($request->boolean('is_predator') && !$enclosure->for_predators) {
+                        $fail('Predators can only be assigned to predator enclosures.');
+                    }
+
+                    if (!$request->boolean('is_predator') && $enclosure->for_predators) {
+                        $fail('Non-predators can only be assigned to non-predator enclosures.');
+                    }
+                }
+            ],
         ]);
 
-        Animal::create($validated);
+        if ($validated->fails()) {
+            return back()->withErrors($validated)->withInput();
+        }
+
+        Animal::create($validated->validated());
 
         return redirect()->route('animals.index')
             ->with('success', 'Animal created successfully.');

@@ -43,6 +43,9 @@
                     @foreach($enclosures as $enclosure)
                         <option value="{{ $enclosure->id }}" {{ old('enclosure_id') == $enclosure->id ? 'selected' : '' }}>
                             id: {{ $enclosure->id }} | Name: {{ $enclosure->name }}
+                            @if($enclosure->for_predators)
+                                (For predators)
+                            @endif
                         </option>
                     @endforeach
                 </select>
@@ -54,17 +57,18 @@
                     <input type="checkbox" name="is_predator"
                         class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
                         {{ old('is_predator') ? 'checked' : '' }}>
-                    <span class="ms-2 text-sm text-gray-600">For Predators?</span>
+                    <span class="ms-2 text-sm text-gray-600">Is predator?</span>
                 </label>
                 <x-input-error :messages="$errors->get('is_predator')" class="mt-2" />
+                <x-input-error :messages="$errors->get('enclosure_id')" class="mt-2" />
             </div>
-
             <div class="flex items-center justify-between">
                 <x-primary-button>
                     {{ __('Create Animal') }}
                 </x-primary-button>
                 <a href="{{ route('animals.index') }}" class="text-indigo-500 hover:underline">Cancel</a>
             </div>
+
         </form>
     </div>
 @endsection
