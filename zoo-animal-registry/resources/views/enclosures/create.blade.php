@@ -12,7 +12,9 @@
             <!-- Name -->
             <div class="mb-4">
                 <x-input-label for="name" :value="__('Name')" />
-                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name')" required
+                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
+                    :value="old('name')"
+                    required
                     autofocus />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
@@ -20,7 +22,8 @@
             <!-- Limit -->
             <div class="mb-4">
                 <x-input-label for="limit" :value="__('Animal Limit')" />
-                <x-text-input id="limit" name="limit" type="number" class="mt-1 block w-full" :value="old('limit')"
+                <x-text-input id="limit" name="limit" type="number" class="mt-1 block w-full"
+                    :value="old('limit')"
                     required />
                 <x-input-error :messages="$errors->get('limit')" class="mt-2" />
             </div>
@@ -28,7 +31,8 @@
             <!-- Feeding At -->
             <div class="mb-4">
                 <x-input-label for="feeding_at" :value="__('Feeding Time')" />
-                <x-text-input id="feeding_at" name="feeding_at" type="time" class="mt-1 block w-full" :value="old('feeding_at')"
+                <x-text-input id="feeding_at" name="feeding_at" type="time" class="mt-1 block w-full"
+                    :value="old('feeding_at')"
                     required />
                 <x-input-error :messages="$errors->get('feeding_at')" class="mt-2" />
             </div>

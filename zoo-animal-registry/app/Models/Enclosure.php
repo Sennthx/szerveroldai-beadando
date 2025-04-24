@@ -34,6 +34,6 @@ class Enclosure extends Model
 
     // Get the animals in the enclosure.
     public function animals(): HasMany {
-        return $this->hasMany(Animal::class);
+        return $this->hasMany(Animal::class)->withTrashed();;
     }
 }

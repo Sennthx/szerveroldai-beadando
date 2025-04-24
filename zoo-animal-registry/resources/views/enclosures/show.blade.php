@@ -39,7 +39,7 @@
         @endif
     @endauth
 
-    <div class="max-w-4xl mx-auto mb-8 p-6 bg-white shadow-md rounded-xl">
+    <div class="max-w-4xl mx-auto m-8 p-6 bg-white shadow-md rounded-xl">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-lg ">
             <div>
                 <label class="text-xl font-extrabold">Name:</label>
@@ -63,11 +63,11 @@
     {{-- Animals List --}}
     <h2 class="text-2xl font-bold mb-4 text-center">Animals in this Enclosure</h2>
 
-    <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4 mb-8">
         @forelse ($animals as $animal)
-            <div class="bg-white shadow shadow-md rounded-xl p-4 flex flex-col items-center">
+            <div class="bg-white shadow shadow-md rounded-xl p-6 flex flex-col items-center">
                 <img src="{{ $animal->image_url ?? asset('images/placeholder-animal.jpg') }}" alt="{{ $animal->name }}"
-                    class="w-32 h-32 object-cover rounded-full mb-4">
+                    class="object-cover rounded-xl mb-4">
 
                 <div class="text-center">
                     <h3 class="text-xl font-semibold">{{ $animal->name }}</h3>
@@ -84,9 +84,10 @@
                                 Edit
                             </a>
 
-                            <form action="{{-- {{ route('animals.archive', $animal->id) }} --}}" method="POST" onsubmit="return confirm('Are you sure?')">
+                            <form action="{{ route('animals.destroy', $animal->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
                                 @csrf
-                                @method('PATCH')
+                                @method('DELETE')
+                                <input type="hidden" name="redirect_back" value="1">
                                 <button type="submit"
                                     class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">
                                     Archive
