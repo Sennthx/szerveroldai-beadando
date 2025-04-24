@@ -22,16 +22,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('enclosures', EnclosureController::class)
             ->only(['create', 'store', 'edit', 'update', 'destroy']);
 
+        Route::get('/animals/archived', [AnimalController::class, 'archived'])->name('animals.archived');
+        Route::post('/animals/{animal}/restore', [AnimalController::class, 'restore'])->name('animals.restore');
+
         Route::resource('animals', AnimalController::class)
             ->only(['show', 'create', 'store', 'edit', 'update', 'destroy']);
 
-        Route::get('/animals/archived', [AnimalController::class, 'archived'])->name('animals.archived');
-        Route::post('/animals/{animal}/restore', [AnimalController::class, 'restore'])->name('animals.restore');
     });
 
     // Public access for authenticated users
     Route::resource('enclosures', EnclosureController::class)->only(['index', 'show']);
-    Route::resource('animals', AnimalController::class)->only(['index']);
+    Route::resource('animals', AnimalController::class)->only(['index', 'show']);
 
 });
 

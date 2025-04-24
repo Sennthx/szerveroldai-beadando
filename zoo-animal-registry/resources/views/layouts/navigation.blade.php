@@ -31,6 +31,11 @@
                         {{ __('Animals') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('animals.archived')" :active="request()->routeIs('animals.archived')" class="text-xl">
+                        {{ __('Archived animals') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
