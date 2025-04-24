@@ -14,3 +14,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    new TomSelect('#enclosure_id', {
+        create: false,
+        dropdownDirection: 'down',
+        placeholder: 'Select an enclosure...',
+    });
+});
+
