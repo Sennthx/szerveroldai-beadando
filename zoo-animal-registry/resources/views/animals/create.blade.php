@@ -62,6 +62,7 @@
                 <x-input-error :messages="$errors->get('is_predator')" class="mt-2" />
                 <x-input-error :messages="$errors->get('enclosure_id')" class="mt-2" />
             </div>
+
             <div class="flex items-center justify-between">
                 <x-primary-button>
                     {{ __('Create Animal') }}

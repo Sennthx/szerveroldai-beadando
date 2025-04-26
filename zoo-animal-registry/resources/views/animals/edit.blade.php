@@ -11,6 +11,10 @@
             @csrf
             @method('PUT')
 
+            @if(request('redirect_back'))
+                <input type="hidden" name="redirect_back" value="{{ request('redirect_back') }}">
+            @endif
+
             <!-- Name -->
             <div class="mb-4">
                 <x-input-label for="name" :value="__('Name')" />
@@ -30,7 +34,7 @@
                 <x-input-error :messages="$errors->get('species')" class="mt-2" />
             </div>
 
-            <!-- Feeding Date -->
+            <!-- Born date -->
             <div class="mb-4">
                 <x-input-label for="born_at" :value="__('Born Date')" />
                 <x-text-input id="born_at" name="born_at" type="date" class="mt-1 block w-full"
@@ -43,11 +47,27 @@
                 <x-input-label for="enclosure_id" :value="__('Enclosures')" />
                 <select id="enclosure_id" name="enclosure_id" class="w-full mt-1 border rounded text-lg">
                     @foreach($enclosures as $enclosure)
-                        <option value="{{ $enclosure->id }}" {{ old('enclosure_id', $animal->enclosure_id) == $enclosure->id ? 'selected' : '' }}>
+                        <option value="{{ $enclosure->id }}"
+                            {{ (old('enclosure_id', $animal->enclosure_id) == $enclosure->id) ? 'selected' : '' }}>
                             id: {{ $enclosure->id }} | Name: {{ $enclosure->name }}
+                            @if($enclosure->for_predators)
+                                (For predators)
+                            @endif
                         </option>
                     @endforeach
                 </select>
+            </div>
+
+            <!-- Is Predator -->
+            <div class="mb-6">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" name="is_predator"
+                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                        {{ old('is_predator', $animal->is_predator ) ? 'checked' : '' }}>
+                    <span class="ms-2 text-sm text-gray-600">Is predator?</span>
+                </label>
+                <x-input-error :messages="$errors->get('is_predator')" class="mt-2" />
+                <x-input-error :messages="$errors->get('enclosure_id')" class="mt-2" />
             </div>
 
             <div class="flex items-center justify-between">

@@ -21,16 +21,15 @@
     @auth
         @if (Auth::user()->admin)
             <div class="w-full flex justify-center mb-4 mt-8">
-                <a href="{{ route('enclosures.edit', $enclosure->id) }}"
-                    class="px-3 py-2 mx-2 bg-indigo-500 text-lg text-white rounded hover:bg-indigo-600 ">
-                    Edit this enclosure
-                </a>
+                <a href="{{ route('enclosures.edit', ['enclosure' => $enclosure->id, 'redirect_back' => url()->full()]) }}"
+                    class="px-3 py-2 mx-2 bg-indigo-500 text-lg text-white rounded hover:bg-indigo-600">
+                     Edit this enclosure
+                 </a>
 
                 <form action="{{ route('enclosures.destroy', $enclosure->id) }}" method="POST"
                     onsubmit="return confirm('Are you sure you want to delete this enclosure?');">
                     @csrf
                     @method('DELETE')
-
                     <button type="submit" class="px-3 py-2 mx-2 bg-red-500 text-lg text-white rounded hover:bg-red-600">
                         Delete this enclosure
                     </button>
@@ -79,7 +78,7 @@
                 <div class="mt-4 flex gap-2">
                     @auth
                         @if (Auth::user()->admin)
-                            <a href="{{ route('animals.edit', $animal->id) }}"
+                            <a href="{{ route('animals.edit', ['animal' => $animal->id, 'redirect_back' => url()->full()]) }}"
                                 class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm">
                                 Edit
                             </a>

@@ -11,6 +11,10 @@
             @csrf
             @method('PUT')
 
+            @if(request()->has('redirect_back'))
+                <input type="hidden" name="redirect_back" value="{{ request()->get('redirect_back') }}">
+            @endif
+
             <!-- Name -->
             <div class="mb-4">
                 <x-input-label for="name" :value="__('Name')" />
