@@ -22,7 +22,7 @@ class HomeController extends Controller
             $enclosures = Auth::user()->enclosures;
         }
 
-        $now = Carbon::now('Europe/Budapest')->format('H:i:s');
+        $now = Carbon::now('Europe/Budapest')->format('H:i');
 
         $feedingTasks = $enclosures
             ->where('feeding_at', '>', $now) // Filter feeding times after now

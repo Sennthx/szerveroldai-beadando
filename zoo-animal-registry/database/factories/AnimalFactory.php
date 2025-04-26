@@ -33,8 +33,8 @@ class AnimalFactory extends Factory
         $isPredator = $this->faker->boolean;
 
         $species = $isPredator
-        ? $this->faker->randomElement($predators)
-        : $this->faker->randomElement($preys);
+            ? $this->faker->randomElement($predators)
+            : $this->faker->randomElement($preys);
 
         // Create or fetch enclosures for predators and non-predators
         $enclosure = $this->getOrCreateEnclosure($isPredator);
