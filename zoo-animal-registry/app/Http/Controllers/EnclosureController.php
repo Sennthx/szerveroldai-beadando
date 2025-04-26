@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Animal;
 use App\Models\Enclosure;
 use App\Models\User;
 use Carbon\Carbon;
@@ -14,7 +13,6 @@ class EnclosureController extends Controller
 {
     public function index()
     {
-
         $enclosures = new Collection();
         if (Auth::user()->admin) {
             $enclosures = Enclosure::withCount('animals')
@@ -109,6 +107,11 @@ class EnclosureController extends Controller
 
         if ($request->has('caretakers')) {
             $enclosure->users()->sync($request->input('caretakers'));
+        }
+
+        if ($request->has('redirect_back')) {
+            return redirect()->to($request->input('redirect_back'))
+                ->with('success', 'Enclosure updated successfully.');
         }
 
         return redirect()->route('enclosures.index')
