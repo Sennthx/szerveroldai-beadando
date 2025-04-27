@@ -22,3 +22,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const removeImageBtn = document.getElementById('remove-image');
+
+    if (removeImageBtn) {
+        removeImageBtn.addEventListener('click', function() {
+            const imageInput = document.getElementById('image');
+            if (imageInput) {
+                imageInput.value = '';
+            }
+        });
+    }
+});
