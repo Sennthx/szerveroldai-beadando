@@ -135,6 +135,11 @@ class EnclosureController extends Controller
                 ->withErrors('Cannot delete enclosure with animals in it. Please move them first.');
         }
 
+        if($enclosure->id === 1) {
+            return redirect()->back()
+                ->withErrors('Cannot delete this special enclosure.');
+        }
+
         $enclosure->delete();
 
         return redirect()->route('enclosures.index')
