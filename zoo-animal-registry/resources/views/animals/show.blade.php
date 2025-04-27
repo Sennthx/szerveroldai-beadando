@@ -6,12 +6,7 @@
     @include('layouts.toast')
     <h1 class="text-4xl font-bold mb-6 mt-8 text-center">Current Animal: <span
             class="text-red-600 font-extrabold">{{ $animal->name }}</span></h1>
-    @if(isset($animal->deleted_at))
-        <div
-            class="bg-gray-200 text-gray-600 border border-gray-800 font-semibold px-4 py-2 rounded text-center max-w-xl mx-auto mb-4">
-            ⚠️ This animal is archived!
-        </div>
-    @endif
+
     @if ($animal->is_predator)
         <div
             class="bg-red-100 text-red-800 border border-red-800 font-semibold px-4 py-2 rounded text-center max-w-xl mx-auto mb-6">
@@ -21,6 +16,41 @@
         <div
             class="bg-green-100 text-green-800 border border-green-800 font-semibold px-4 py-2 rounded text-center max-w-xl mx-auto mb-6">
             ✅ This animal is not a predator!
+        </div>
+    @endif
+    @if(isset($animal->deleted_at))
+        <div
+            class="bg-gray-200 text-gray-600 border border-gray-800 font-semibold px-4 py-2 rounded text-center max-w-xl mx-auto mb-4">
+            ⚠️ This animal is archived!
+        </div>
+        <div class="max-w-xl mx-auto mx-auto m-8 p-6 bg-white shadow-md rounded-xl">
+            <form action="{{ route('animals.restore', $animal->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <!-- Enclosure assign -->
+                <div
+                    class="bg-green-100 text-green-800 border border-green-800 font-semibold px-4 py-2 rounded text-center mb-2">
+                    Assign an enclosre to restore this archived animal
+                </div>
+                <div class="mb-4">
+                    <x-input-label for="enclosure_id" :value="__('Enclosures')" />
+                    <select id="enclosure_id" name="enclosure_id" class="w-full mt-1 border rounded text-lg">
+                        @foreach($enclosures as $enclosure)
+                            <option value="{{ $enclosure->id }}"
+                                {{ (old('enclosure_id', $animal->enclosure_id) == $enclosure->id) ? 'selected' : '' }}>
+                                id: {{ $enclosure->id }} | Name: {{ $enclosure->name }}
+                                @if($enclosure->for_predators)
+                                    (For predators)
+                                @endif
+                            </option>
+                        @endforeach
+                    </select>
+                    <x-input-error :messages="$errors->get('enclosure_id')" class="mt-2" />
+                </div>
+                <button type="submit" class="px-3 py-2 bg-red-500 text-m text-white rounded hover:bg-red-600">
+                    Restore this animal
+                </button>
+            </form>
         </div>
     @endif
     @if(!isset($animal->deleted_at))
@@ -66,10 +96,12 @@
         </div>
     </div>
 
-    <div class="flex justify-center mb-6">
-        <img src="{{ $animal->image_url ?? asset('images/placeholder-animal.jpg') }}"
-             alt="{{ $animal->name }}"
-             class="w-80 max-h-80 object-cover rounded shadow-lg">
+    <div class="flex justify-center mb-6 relative">
+        <img
+            src="{{ $animal->image_hash ? asset('storage/animals/images/' . $animal->image_hash) : asset('storage/animals/placeholder-animal.jpg') }}"
+            alt="{{ $animal->name }}"
+            class="w-80 aspect-[16/10] object-cover rounded shadow-lg"
+        >
     </div>
 
 @endsection
