@@ -221,7 +221,7 @@ class AnimalController extends Controller
                         $fail('Non-predators can only be assigned to non-predator enclosures.');
                     }
 
-                    if ($enclosure->animals()->count() + 1 >= $enclosure->max_animals) {
+                    if ($enclosure->animals()->count() + 1 > $enclosure->limit) {
                         $fail('This enclosure is full and cannot accept more animals.');
                     }
                 }
