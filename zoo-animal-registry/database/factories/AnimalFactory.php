@@ -46,8 +46,8 @@ class AnimalFactory extends Factory
             'born_at' => $this->faker->dateTimeThisCentury(),
             'deleted_at' => null,
             'enclosure_id' => $enclosure->id,
-            'image_name' => $this->faker->imageUrl(),
-            'image_hash' => $this->faker->sha256,
+            'image_name' => null,
+            'image_hash' => null,
         ];
     }
 
