@@ -6,7 +6,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // Home
@@ -27,7 +26,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resource('animals', AnimalController::class)
             ->only(['show', 'create', 'store', 'edit', 'update', 'destroy']);
-
     });
 
     Route::resource('enclosures', EnclosureController::class)->only(['index', 'show']);
