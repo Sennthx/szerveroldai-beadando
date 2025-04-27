@@ -28,7 +28,7 @@
                             <span class="badge rounded-pill bg-info fs-6">{{ $animal->species }}</span>
                         </td>
                         <td class="p-4">
-                            <span class="badge rounded-pill bg-info fs-6">{{ $animal->birth_date }}</span>
+                            <span class="badge rounded-pill bg-info fs-6">{{ $animal->born_at->format("Y-m-d") }}</span>
                         </td>
                         <td class="p-4">
                             <span class="badge rounded-pill bg-info fs-6">
