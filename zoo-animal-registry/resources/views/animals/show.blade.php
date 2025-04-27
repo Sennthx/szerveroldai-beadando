@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Enclosure | Zoo Registry')
+@section('title', 'Animal | Zoo Registry')
 
 @section('content')
     @include('layouts.toast')

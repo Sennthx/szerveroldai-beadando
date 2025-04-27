@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Enclosure | Zoo Registry')
+@section('title', 'Edit Animal | Zoo Registry')
 
 @section('content')
     <h1 class="text-4xl font-bold mb-6 mt-8 text-center">Editing <span class="text-red-600">{{ $animal->name }}!</span>
