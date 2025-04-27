@@ -6,7 +6,8 @@
     <h1 class="text-4xl font-bold mb-6 mt-8 text-center">Create an <span class="text-red-600">Animal!</span></h1>
 
     <div class="max-w-xl mx-auto">
-        <form method="POST" action="{{ route('animals.store') }}" novalidate>
+        <form method="POST" action="{{ route('animals.store') }}"
+            enctype="multipart/form-data" novalidate>
             @csrf
 
             <!-- Name -->
@@ -61,6 +62,18 @@
                 </label>
                 <x-input-error :messages="$errors->get('is_predator')" class="mt-2" />
                 <x-input-error :messages="$errors->get('enclosure_id')" class="mt-2" />
+            </div>
+
+            <div class="mb-6">
+                <x-input-label for="image" :value="__('Animal Image')" />
+                <input type="file" id="image" name="image"
+                    class="block w-full text-sm text-gray-500
+                           file:mr-4 file:py-2 file:px-4
+                           file:rounded-full file:border-0
+                           file:text-sm file:font-semibold
+                           file:bg-indigo-50 file:text-indigo-700
+                           hover:file:bg-indigo-100" />
+                <x-input-error :messages="$errors->get('image')" class="mt-2" />
             </div>
 
             <div class="flex items-center justify-between">
