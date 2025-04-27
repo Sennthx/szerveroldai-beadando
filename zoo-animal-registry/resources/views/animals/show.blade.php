@@ -18,7 +18,7 @@
             ✅ This animal is not a predator!
         </div>
     @endif
-    @if(isset($animal->deleted_at))
+    @if (isset($animal->deleted_at))
         <div
             class="bg-gray-200 text-gray-600 border border-gray-800 font-semibold px-4 py-2 rounded text-center max-w-xl mx-auto mb-4">
             ⚠️ This animal is archived!
@@ -35,11 +35,11 @@
                 <div class="mb-4">
                     <x-input-label for="enclosure_id" :value="__('Enclosures')" />
                     <select id="enclosure_id" name="enclosure_id" class="w-full mt-1 border rounded text-lg">
-                        @foreach($enclosures as $enclosure)
+                        @foreach ($enclosures as $enclosure)
                             <option value="{{ $enclosure->id }}"
-                                {{ (old('enclosure_id', $animal->enclosure_id) == $enclosure->id) ? 'selected' : '' }}>
+                                {{ old('enclosure_id', $animal->enclosure_id) == $enclosure->id ? 'selected' : '' }}>
                                 id: {{ $enclosure->id }} | Name: {{ $enclosure->name }}
-                                @if($enclosure->for_predators)
+                                @if ($enclosure->for_predators)
                                     (For predators)
                                 @endif
                             </option>
@@ -53,7 +53,7 @@
             </form>
         </div>
     @endif
-    @if(!isset($animal->deleted_at))
+    @if (!isset($animal->deleted_at))
         @auth
             @if (Auth::user()->admin)
                 <div class="w-full flex justify-center mb-4 mt-8">
@@ -97,11 +97,8 @@
     </div>
 
     <div class="flex justify-center mb-6 relative">
-        <img
-            src="{{ $animal->image_hash ? asset('storage/animals/images/' . $animal->image_hash) : asset('placeholder-animal.jpg') }}"
-            alt="{{ $animal->name }}"
-            class="w-80 aspect-[16/10] object-cover rounded shadow-lg"
-        >
+        <img src="{{ $animal->image_hash ? asset('storage/animals/images/' . $animal->image_hash) : asset('placeholder-animal.jpg') }}"
+            alt="{{ $animal->name }}" class="w-80 aspect-[16/10] object-cover rounded shadow-lg">
     </div>
 
 @endsection

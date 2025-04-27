@@ -15,13 +15,13 @@ class AnimalController extends Controller
     public function index()
     {
         $animals = Animal::orderBy('species')
-                    ->orderBy('birth_date')
-                    ->paginate(5);
+            ->orderBy('birth_date')
+            ->paginate(5);
 
         $animals->map(function ($animal) {
-                $animal->birth_date = Carbon::parse($animal->birth_date)->format('Y-m-d');
-                return $animal;
-            });
+            $animal->birth_date = Carbon::parse($animal->birth_date)->format('Y-m-d');
+            return $animal;
+        });
 
         return view('animals.index', compact('animals'));
     }
@@ -42,7 +42,8 @@ class AnimalController extends Controller
         return view('animals.show', compact('animal', 'enclosures'));
     }
 
-    public function archived() {
+    public function archived()
+    {
         $enclosure = Enclosure::find(1);
 
         if (!$enclosure) {
@@ -57,7 +58,8 @@ class AnimalController extends Controller
         return view('animals.archived', compact('archived_animals'));
     }
 
-    public function restore(Request $request, $id) {
+    public function restore(Request $request, $id)
+    {
         $animal = Animal::withTrashed()->find($id);
 
         if (!$animal) {
@@ -101,12 +103,14 @@ class AnimalController extends Controller
             ->with('success', 'Animal restored successfully.');
     }
 
-    public function create() {
+    public function create()
+    {
         $enclosures = Enclosure::where('id', '!=', 1)->get();
         return view('animals.create', compact('enclosures'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->merge([
             'is_predator' => $request->has('is_predator'),
         ]);
@@ -177,7 +181,8 @@ class AnimalController extends Controller
         return view('animals.edit', compact('animal', 'enclosures'));
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $animal = Animal::find($id);
 
         if (!$animal) {

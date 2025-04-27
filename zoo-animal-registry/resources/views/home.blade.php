@@ -16,7 +16,7 @@
         </div>
         <div class="bg-white p-4 mb-2 mt-4 shadow rounded">
             <h2 class="text-2xl font-extrabold mb-2">Your tasks (upcoming feedings)</h2>
-            @if($feedingTasks->isEmpty())
+            @if ($feedingTasks->isEmpty())
                 <p class="text-lg mt-4">There are no upcoming feedings.</p>
             @else
                 <ul class="list-disc pl-5 space-y-2">

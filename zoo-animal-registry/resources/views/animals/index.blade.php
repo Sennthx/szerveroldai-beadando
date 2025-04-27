@@ -14,8 +14,8 @@
             </div>
         @endif
     @endauth
-    <h1 class="text-4xl font-bold mb-4 mt-6 text-center">List of all <span
-            class="text-red-600 font-extrabold">Animals!</span></h1>
+    <h1 class="text-4xl font-bold mb-4 mt-6 text-center">List of all <span class="text-red-600 font-extrabold">Animals!</span>
+    </h1>
 
     <div class="w-full flex justify-center mb-8">
         <table class="table-auto text-xl w-fit max-w-4xl min-w-[60rem] mx-auto my-4 bg-white shadow-md rounded-xl ">
@@ -60,8 +60,9 @@
             </tbody>
         </table>
     </div>
-    @if($animals->count() == 0)
-        <div class="text-4xl font-semibold text-black mb-4 mt-6 text-center">There are no <span class="text-red-600">animals...</span> </div>
+    @if ($animals->count() == 0)
+        <div class="text-4xl font-semibold text-black mb-4 mt-6 text-center">There are no <span
+                class="text-red-600">animals...</span> </div>
     @endif
     <div class="mt-4 w-full max-w-4xl mx-auto">
         {{ $animals->links() }}

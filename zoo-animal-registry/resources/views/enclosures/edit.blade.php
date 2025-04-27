@@ -12,15 +12,15 @@
             @method('PUT')
 
             <!-- Hidden redirect -->
-            @if(request()->has('redirect_back'))
+            @if (request()->has('redirect_back'))
                 <input type="hidden" name="redirect_back" value="{{ request()->get('redirect_back') }}">
             @endif
 
             <!-- Name -->
             <div class="mb-4">
                 <x-input-label for="name" :value="__('Name')" />
-                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $enclosure->name)" required
-                    autofocus />
+                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $enclosure->name)"
+                    required autofocus />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
@@ -44,8 +44,9 @@
             <div class="mb-4">
                 <x-input-label for="caretakers" :value="__('Caretakers')" />
                 <select id="caretakers" name="caretakers[]" multiple class="w-full mt-1 border rounded">
-                    @foreach($users as $user)
-                        <option value="{{ $user->id }}" {{ in_array($user->id, $enclosure->users->pluck('id')->toArray()) ? 'selected' : '' }}>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}"
+                            {{ in_array($user->id, $enclosure->users->pluck('id')->toArray()) ? 'selected' : '' }}>
                             {{ $user->name }}
                         </option>
                     @endforeach

@@ -56,6 +56,5 @@ class DatabaseSeeder extends Seeder
         foreach ($animalsToArchive as $animal) {
             $animal->archive();
         }
-
     }
 }

@@ -23,8 +23,8 @@
             <div class="w-full flex justify-center mb-4 mt-8">
                 <a href="{{ route('enclosures.edit', ['enclosure' => $enclosure->id, 'redirect_back' => url()->full()]) }}"
                     class="px-3 py-2 mx-2 bg-indigo-500 text-lg text-white rounded hover:bg-indigo-600">
-                     Edit this enclosure
-                 </a>
+                    Edit this enclosure
+                </a>
 
                 <form action="{{ route('enclosures.destroy', $enclosure->id) }}" method="POST"
                     onsubmit="return confirm('Are you sure you want to delete this enclosure?');">
@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    @if($enclosure->id === 1)
+    @if ($enclosure->id === 1)
         <div class="text-center">
             <div class="text-4xl font-semibold text-black mb-4 mt-6">
                 Animals in this enclosure are <span class="text-red-600">archived!</span>
@@ -67,7 +67,7 @@
 
             <div class="mt-4">
                 <a href="{{ route('animals.archived') }}"
-                class="inline-block px-4 py-2 bg-indigo-500 text-lg text-white rounded hover:bg-indigo-600 transition-colors">
+                    class="inline-block px-4 py-2 bg-indigo-500 text-lg text-white rounded hover:bg-indigo-600 transition-colors">
                     Go to archived animals
                 </a>
             </div>
@@ -81,11 +81,8 @@
                 <div class="bg-white shadow shadow-md rounded-xl p-6 flex flex-col items-center">
 
                     <div class="w-full mb-4 aspect-[16/10] rounded-xl overflow-hidden">
-                        <img
-                            src="{{ $animal->image_hash ? asset('storage/animals/images/' . $animal->image_hash) : asset('placeholder-animal.jpg') }}"
-                            alt="{{ $animal->name }}"
-                            class="object-cover w-full h-full"
-                        >
+                        <img src="{{ $animal->image_hash ? asset('storage/animals/images/' . $animal->image_hash) : asset('placeholder-animal.jpg') }}"
+                            alt="{{ $animal->name }}" class="object-cover w-full h-full">
                     </div>
 
                     <div class="text-center">
@@ -103,7 +100,8 @@
                                     Edit
                                 </a>
 
-                                <form action="{{ route('animals.destroy', $animal->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                <form action="{{ route('animals.destroy', $animal->id) }}" method="POST"
+                                    onsubmit="return confirm('Are you sure?')">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="redirect_back" value="1">

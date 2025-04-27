@@ -36,7 +36,8 @@ class Animal extends Model
         ];
     }
 
-    public function archive(): void {
+    public function archive(): void
+    {
         $afterlifeId = config('zoo.afterlife_enclosure_id');
         $this->update([
             'enclosure_id' => $afterlifeId,
@@ -45,7 +46,8 @@ class Animal extends Model
     }
 
     // Get the enclosure that belong to this animal.
-    public function enclosure(): BelongsTo {
+    public function enclosure(): BelongsTo
+    {
         return $this->belongsTo(Enclosure::class);
     }
 }

@@ -28,12 +28,14 @@ class Enclosure extends Model
     }
 
     // Get the users that belong to this enclosure.
-    public function users(): BelongsToMany {
+    public function users(): BelongsToMany
+    {
         return $this->BelongsToMany(User::class)->withTimestamps();
     }
 
     // Get the animals in the enclosure.
-    public function animals(): HasMany {
+    public function animals(): HasMany
+    {
         return $this->hasMany(Animal::class)->withTrashed();;
     }
 }

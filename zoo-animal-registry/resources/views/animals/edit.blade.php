@@ -7,31 +7,27 @@
     </h1>
 
     <div class="max-w-xl mx-auto">
-        <form method="POST" action="{{ route('animals.update', $animal->id) }}"
-            enctype="multipart/form-data" novalidate>
+        <form method="POST" action="{{ route('animals.update', $animal->id) }}" enctype="multipart/form-data" novalidate>
             @csrf
             @method('PUT')
 
             <!-- Hidden input for redirect -->
-            @if(request('redirect_back'))
+            @if (request('redirect_back'))
                 <input type="hidden" name="redirect_back" value="{{ request('redirect_back') }}">
             @endif
 
             <!-- Name -->
             <div class="mb-4">
                 <x-input-label for="name" :value="__('Name')" />
-                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
-                    :value="old('name', $animal->name)"
-                    required
-                    autofocus />
+                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $animal->name)"
+                    required autofocus />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
             <!-- Species -->
             <div class="mb-4">
                 <x-input-label for="species" :value="__('Animal Species')" />
-                <x-text-input id="species" name="species" type="text" class="mt-1 block w-full"
-                    :value="old('species', $animal->species)"
+                <x-text-input id="species" name="species" type="text" class="mt-1 block w-full" :value="old('species', $animal->species)"
                     required />
                 <x-input-error :messages="$errors->get('species')" class="mt-2" />
             </div>
@@ -39,8 +35,7 @@
             <!-- Born date -->
             <div class="mb-4">
                 <x-input-label for="born_at" :value="__('Born Date')" />
-                <x-text-input id="born_at" name="born_at" type="date" class="mt-1 block w-full"
-                    :value="old('born_at', $animal->born_at->format('Y-m-d'))"
+                <x-text-input id="born_at" name="born_at" type="date" class="mt-1 block w-full" :value="old('born_at', $animal->born_at->format('Y-m-d'))"
                     required />
                 <x-input-error :messages="$errors->get('born_at')" class="mt-2" />
             </div>
@@ -49,11 +44,11 @@
             <div class="mb-4">
                 <x-input-label for="enclosure_id" :value="__('Enclosures')" />
                 <select id="enclosure_id" name="enclosure_id" class="w-full mt-1 border rounded text-lg">
-                    @foreach($enclosures as $enclosure)
+                    @foreach ($enclosures as $enclosure)
                         <option value="{{ $enclosure->id }}"
-                            {{ (old('enclosure_id', $animal->enclosure_id) == $enclosure->id) ? 'selected' : '' }}>
+                            {{ old('enclosure_id', $animal->enclosure_id) == $enclosure->id ? 'selected' : '' }}>
                             id: {{ $enclosure->id }} | Name: {{ $enclosure->name }}
-                            @if($enclosure->for_predators)
+                            @if ($enclosure->for_predators)
                                 (For predators)
                             @endif
                         </option>
@@ -66,7 +61,7 @@
                 <label class="inline-flex items-center">
                     <input type="checkbox" name="is_predator"
                         class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-                        {{ old('is_predator', $animal->is_predator ) ? 'checked' : '' }}>
+                        {{ old('is_predator', $animal->is_predator) ? 'checked' : '' }}>
                     <span class="ms-2 text-sm text-gray-600">Is predator?</span>
                 </label>
                 <x-input-error :messages="$errors->get('is_predator')" class="mt-2" />
@@ -78,19 +73,21 @@
                 <div class="flex items-center gap-4">
                     <!-- File Input (takes available space) -->
                     <input type="file" id="image" name="image"
-                           class="flex-1 text-sm text-gray-500
+                        class="flex-1 text-sm text-gray-500
                                   file:mr-4 file:py-2 file:px-4
                                   file:rounded-full file:border-0
                                   file:text-sm file:font-semibold
                                   file:bg-indigo-50 file:text-indigo-700
                                   hover:file:bg-indigo-100"
-                            value={{ old('image') }}/>
+                        value={{ old('image') }} />
 
                     <!-- Button to Deselect Image -->
                     <button type="button" id="remove-image"
-                            class="flex-shrink-0 p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-full transition-colors">
+                        class="flex-shrink-0 p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-full transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
                         </svg>
                     </button>
                 </div>
