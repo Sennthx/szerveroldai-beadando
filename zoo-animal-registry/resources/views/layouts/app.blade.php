@@ -13,7 +13,6 @@
 
 <body class="bg-gray-100 text-gray-900">
     @include('layouts.navigation')
-
     <main class="max-w-7xl mx-auto py-6 px-4">
         @yield('content')
     </main>

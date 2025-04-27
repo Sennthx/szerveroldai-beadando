@@ -65,8 +65,14 @@
     <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4 mb-8">
         @forelse ($animals as $animal)
             <div class="bg-white shadow shadow-md rounded-xl p-6 flex flex-col items-center">
-                <img src="{{ $animal->image_url ?? asset('images/placeholder-animal.jpg') }}" alt="{{ $animal->name }}"
-                    class="object-cover rounded-xl mb-4">
+
+                <div class="w-full mb-4 aspect-[16/10] rounded-xl overflow-hidden">
+                    <img
+                        src="{{ $animal->image_hash ? asset('storage/animals/images/' . $animal->image_hash) : asset('storage/animals/placeholder-animal.jpg') }}"
+                        alt="{{ $animal->name }}"
+                        class="object-cover w-full h-full"
+                    >
+                </div>
 
                 <div class="text-center">
                     <h3 class="text-xl font-semibold">{{ $animal->name }}</h3>

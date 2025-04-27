@@ -11,6 +11,7 @@
             @csrf
             @method('PUT')
 
+            <!-- Hidden redirect -->
             @if(request()->has('redirect_back'))
                 <input type="hidden" name="redirect_back" value="{{ request()->get('redirect_back') }}">
             @endif
@@ -39,6 +40,7 @@
                 <x-input-error :messages="$errors->get('feeding_at')" class="mt-2" />
             </div>
 
+            <!-- Caretaker assign -->
             <div class="mb-4">
                 <x-input-label for="caretakers" :value="__('Caretakers')" />
                 <select id="caretakers" name="caretakers[]" multiple class="w-full mt-1 border rounded">
