@@ -68,7 +68,7 @@
 
                 <div class="w-full mb-4 aspect-[16/10] rounded-xl overflow-hidden">
                     <img
-                        src="{{ $animal->image_hash ? asset('storage/animals/images/' . $animal->image_hash) : asset('storage/placeholder-animal.jpg') }}"
+                        src="{{ $animal->image_hash ? asset('storage/animals/images/' . $animal->image_hash) : asset('placeholder-animal.jpg') }}"
                         alt="{{ $animal->name }}"
                         class="object-cover w-full h-full"
                     >

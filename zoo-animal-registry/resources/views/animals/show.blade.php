@@ -98,7 +98,7 @@
 
     <div class="flex justify-center mb-6 relative">
         <img
-            src="{{ $animal->image_hash ? asset('storage/animals/images/' . $animal->image_hash) : asset('storage/placeholder-animal.jpg') }}"
+            src="{{ $animal->image_hash ? asset('storage/animals/images/' . $animal->image_hash) : asset('placeholder-animal.jpg') }}"
             alt="{{ $animal->name }}"
             class="w-80 aspect-[16/10] object-cover rounded shadow-lg"
         >
