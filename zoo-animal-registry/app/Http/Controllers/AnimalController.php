@@ -136,6 +136,10 @@ class AnimalController extends Controller
                     if (!$request->boolean('is_predator') && $enclosure->for_predators) {
                         $fail('Non-predators can only be assigned to non-predator enclosures.');
                     }
+
+                    if ($enclosure->animals()->count() >= $enclosure->max_animals) {
+                        $fail('This enclosure is full and cannot accept more animals.');
+                    }
                 }
             ],
         ]);
@@ -202,7 +206,7 @@ class AnimalController extends Controller
             'enclosure_id' => [
                 'required',
                 'exists:enclosures,id',
-                function ($value, $fail) use ($request) {
+                function ($attribute, $value, $fail) use ($request) {
                     $enclosure = Enclosure::find($value);
 
                     if (!$enclosure) {
@@ -215,6 +219,10 @@ class AnimalController extends Controller
 
                     if (!$request->boolean('is_predator') && $enclosure->for_predators) {
                         $fail('Non-predators can only be assigned to non-predator enclosures.');
+                    }
+
+                    if ($enclosure->animals()->count() + 1 >= $enclosure->max_animals) {
+                        $fail('This enclosure is full and cannot accept more animals.');
                     }
                 }
             ],

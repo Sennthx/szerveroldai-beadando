@@ -36,7 +36,7 @@ class EnclosureController extends Controller
             return redirect()->route('enclosures.index')->withErrors('Enclosure not found.');
         }
 
-        if (!Auth::user()->enclosures->contains($enclosure->id)) {
+        if (!Auth::user()->enclosures->contains($enclosure->id) && !Auth::user()->admin) {
             return redirect()->route('enclosures.index')->withErrors('You are not assigned to this enclosure.');
         }
 
@@ -72,7 +72,7 @@ class EnclosureController extends Controller
             'for_predators' => 'boolean',
         ]);
 
-        Enclosure::create($validated);
+        $enclosure = Enclosure::create($validated);
 
         return redirect()->route('enclosures.index')
             ->with('success', 'Enclosure created successfully.');
@@ -106,6 +106,13 @@ class EnclosureController extends Controller
             'caretakers' => 'nullable|array',
             'caretakers.*' => 'exists:users,id',
         ]);
+
+        $currentAnimalCount = $enclosure->animals()->count();
+        if ($validated['limit'] < $currentAnimalCount) {
+            return redirect()->back()->withErrors([
+                'limit' => "The new limit ({$validated['limit']}) cannot be lower than the current number of animals ({$currentAnimalCount}).",
+            ])->withInput();
+        }
 
         $enclosure->update($validated);
 
