@@ -1,7 +1,7 @@
 :: Install Composer packages without any interaction or console log
 :: You can uncomment the next line if you're starting from a specific directory (e.g., zoo-animal-registry)
-:: call cd zoo-animal-registry
 
+call cd zoo-animal-registry
 echo Installing Composer packages...
 call composer install --no-interaction --quiet
 
