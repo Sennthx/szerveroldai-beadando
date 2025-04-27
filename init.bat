@@ -3,7 +3,7 @@
 
 call cd zoo-animal-registry
 echo Installing Composer packages...
-call composer install --no-interaction --quiet
+call composer install --no-interaction
 
 :: .env file initialization
 echo Initializing .env file...
@@ -13,7 +13,7 @@ echo Initializing .env file...
     echo APP_ENV=local
     echo APP_KEY=
     echo APP_DEBUG=true
-    echo APP_TIMEZONE=UTC
+    echo APP_TIMEZONE=Europe/Budapest
     echo APP_URL=http://localhost:8000
     echo.
     echo DB_CONNECTION=sqlite
@@ -29,9 +29,9 @@ call php artisan key:generate
 echo Installing NPM packages...
 call npm install --silent
 
-:: Build frontend assets using Mix (use npm run build for production)
+:: Build frontend assets using Mix
 echo Building frontend assets...
-call npm run dev -- --build
+call npm run build
 
 :: Create an empty database\database.sqlite file, so we can run the migrations
 echo Creating database.sqlite file...
