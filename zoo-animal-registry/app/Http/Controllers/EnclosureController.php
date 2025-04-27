@@ -36,10 +36,14 @@ class EnclosureController extends Controller
             return redirect()->route('enclosures.index')->withErrors('Enclosure not found.');
         }
 
+        if (!Auth::user()->enclosures->contains($enclosure->id)) {
+            return redirect()->route('enclosures.index')->withErrors('You are not assigned to this enclosure.');
+        }
+
         $animals = $enclosure->animals
             ->sortBy([
                 ['species', 'asc'],
-                ['birth_date', 'asc'],
+                ['born_at', 'asc'],
             ])
             ->map(function ($animal) {
                 $animal->birth_date = Carbon::parse($animal->birth_date)->format('Y-m-d');
