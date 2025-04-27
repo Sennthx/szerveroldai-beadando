@@ -56,7 +56,7 @@
                 <x-primary-button>
                     {{ __('Update Enclosure') }}
                 </x-primary-button>
-                <a href="{{ route('enclosures.index') }}" class="text-indigo-500 hover:underline">Cancel</a>
+                <a href="{{ url()->previous() }}" class="text-indigo-500 hover:underline">Cancel</a>
             </div>
         </form>
     </div>

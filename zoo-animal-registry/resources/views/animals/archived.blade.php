@@ -53,6 +53,9 @@
             </tbody>
         </table>
     </div>
+    @if($archived_animals->count() == 0)
+        <div class="text-4xl font-semibold text-black mb-4 mt-6 text-center">There are no <span class="text-red-600">archived</span> animals...</div>
+    @endif
     <div class="mt-4 w-full max-w-4xl mx-auto">
         {{ $archived_animals->links() }}
     </div>
