@@ -19,7 +19,7 @@
         </div>
     @endif
     @auth
-        @if (Auth::user()->admin)
+        @if (Auth::user()->admin && $enclosure->id !== 1)
             <div class="w-full flex justify-center mb-4 mt-8">
                 <a href="{{ route('enclosures.edit', ['enclosure' => $enclosure->id, 'redirect_back' => url()->full()]) }}"
                     class="px-3 py-2 mx-2 bg-indigo-500 text-lg text-white rounded hover:bg-indigo-600">
@@ -59,51 +59,66 @@
         </div>
     </div>
 
-    {{-- Animals List --}}
-    <h2 class="text-2xl font-bold mb-4 text-center">Animals in this Enclosure</h2>
-
-    <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4 mb-8">
-        @forelse ($animals as $animal)
-            <div class="bg-white shadow shadow-md rounded-xl p-6 flex flex-col items-center">
-
-                <div class="w-full mb-4 aspect-[16/10] rounded-xl overflow-hidden">
-                    <img
-                        src="{{ $animal->image_hash ? asset('storage/animals/images/' . $animal->image_hash) : asset('placeholder-animal.jpg') }}"
-                        alt="{{ $animal->name }}"
-                        class="object-cover w-full h-full"
-                    >
-                </div>
-
-                <div class="text-center">
-                    <h3 class="text-xl font-semibold">{{ $animal->name }}</h3>
-                    <p class="text-gray-700">{{ $animal->species }}</p>
-                    <p class="text-gray-600 text-sm">Born at:
-                        {{ $animal->birth_date }}</p>
-                </div>
-
-                <div class="mt-4 flex gap-2">
-                    @auth
-                        @if (Auth::user()->admin)
-                            <a href="{{ route('animals.edit', ['animal' => $animal->id, 'redirect_back' => url()->full()]) }}"
-                                class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm">
-                                Edit
-                            </a>
-
-                            <form action="{{ route('animals.destroy', $animal->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="redirect_back" value="1">
-                                <button type="submit"
-                                    class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">
-                                    Archive
-                                </button>
-                            </form>
-                        @endif
-                    @endauth
-                </div>
+    @if($enclosure->id === 1)
+        <div class="text-center">
+            <div class="text-4xl font-semibold text-black mb-4 mt-6">
+                Animals in this enclosure are <span class="text-red-600">archived!</span>
             </div>
-        @empty
-            <p class="text-center col-span-full text-gray-500">No animals currently in this enclosure.</p>
-        @endforelse
-    </div>
+
+            <div class="mt-4">
+                <a href="{{ route('animals.archived') }}"
+                class="inline-block px-4 py-2 bg-indigo-500 text-lg text-white rounded hover:bg-indigo-600 transition-colors">
+                    Go to archived animals
+                </a>
+            </div>
+        </div>
+    @else
+        {{-- Animals List --}}
+        <h2 class="text-2xl font-bold mb-4 text-center">Animals in this Enclosure</h2>
+
+        <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4 mb-8">
+            @forelse ($animals as $animal)
+                <div class="bg-white shadow shadow-md rounded-xl p-6 flex flex-col items-center">
+
+                    <div class="w-full mb-4 aspect-[16/10] rounded-xl overflow-hidden">
+                        <img
+                            src="{{ $animal->image_hash ? asset('storage/animals/images/' . $animal->image_hash) : asset('placeholder-animal.jpg') }}"
+                            alt="{{ $animal->name }}"
+                            class="object-cover w-full h-full"
+                        >
+                    </div>
+
+                    <div class="text-center">
+                        <h3 class="text-xl font-semibold">{{ $animal->name }}</h3>
+                        <p class="text-gray-700">{{ $animal->species }}</p>
+                        <p class="text-gray-600 text-sm">Born at:
+                            {{ $animal->birth_date }}</p>
+                    </div>
+
+                    <div class="mt-4 flex gap-2">
+                        @auth
+                            @if (Auth::user()->admin)
+                                <a href="{{ route('animals.edit', ['animal' => $animal->id, 'redirect_back' => url()->full()]) }}"
+                                    class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm">
+                                    Edit
+                                </a>
+
+                                <form action="{{ route('animals.destroy', $animal->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="redirect_back" value="1">
+                                    <button type="submit"
+                                        class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">
+                                        Archive
+                                    </button>
+                                </form>
+                            @endif
+                        @endauth
+                    </div>
+                </div>
+            @empty
+                <p class="text-center col-span-full text-gray-500">No animals currently in this enclosure.</p>
+            @endforelse
+        </div>
+    @endif
 @endsection
